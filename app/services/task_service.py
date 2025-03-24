@@ -17,7 +17,7 @@ async def get_task(task_id: str) -> Optional[Task]:
 async def update_task(task_id: str, task_data: UpdateTask) -> Optional[Task]:
     task = await Task.get(task_id)
     if task:
-        update_data = task_data.dict(exclude_unset=True)
+        update_data = task_data.model_dump(exclude_unset=True)
         await task.update({"$set": update_data})
         return task
     return None
