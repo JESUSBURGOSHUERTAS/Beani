@@ -5,6 +5,7 @@ from contextlib import asynccontextmanager
 from app.core.config import settings
 from app.api.v1.routes import task
 # from app.api.v1.routes.company import company
+from app.auth.routes import router as auth_router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -34,4 +35,4 @@ def welcome():
 
 # Registrar rutas
 app.include_router(task.router, prefix="/api/tasks", tags=["tasks"])
-
+app.include_router(auth_router, prefix="/auth", tags=["auth"])
