@@ -14,8 +14,9 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 60
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/auth/login")
 
-async def get_user(email: str) -> Optional[User]:
-    return await User.find_one(User.email == email)
+async def get_user(email: str):
+    return await User.find_one({"email": email})  # Usa un diccionario en la consulta
+
 
 async def create_user(email: str, password: str, full_name: Optional[str]):
     hashed_password = pwd_context.hash(password)
