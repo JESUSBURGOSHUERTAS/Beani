@@ -1,4 +1,6 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
+from app.models.user import User
+from app.services.auth_service import get_current_user
 from app.services.task_service import (
     create_task, get_tasks, get_task, update_task, delete_task
 )
@@ -14,8 +16,9 @@ async def create(task: Task):
 
 # Obtener todas las tareas
 @router.get("/", response_model=List[Task])
-async def read_all():
+async def read_all(user: User = Depends(get_current_user)):
     return await get_tasks()
+
 
 # Obtener una tarea por ID
 @router.get("/{task_id}", response_model=Task)
