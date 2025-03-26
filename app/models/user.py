@@ -9,7 +9,8 @@ class User(Document):
     full_name: Optional[str] = None
     google_id: Optional[str] = None
     created_at: datetime = datetime.utcnow()
-
+    refresh_token: Optional[str] = None  # Nuevo campo para refresh tokens
+    
     class Settings:
         collection = "users"
 
